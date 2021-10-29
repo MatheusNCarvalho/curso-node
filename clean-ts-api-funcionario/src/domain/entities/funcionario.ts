@@ -7,14 +7,14 @@ export class Funcionario {
   telefone: string
   ativo: boolean
 
-  constructor (id: string, nome: string, cpf: string, rg: string, email: string, telefone: string) {
+  constructor (id: string, nome: string, cpf: string, rg: string, email: string, telefone: string, ativo: boolean = true) {
     this.id = id
     this.nome = nome
     this.cpf = cpf
     this.rg = rg
     this.email = email
     this.telefone = telefone
-    this.ativo = true
+    this.ativo = ativo
   }
 
   setEmail (email: string): void {
