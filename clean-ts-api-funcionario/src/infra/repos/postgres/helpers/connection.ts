@@ -45,6 +45,10 @@ export class PgConnection implements DbTranscation {
     await this.query.rollbackTransaction()
   }
 
+  async runMigrations (): Promise<void> {
+    await this.connection?.runMigrations()
+  }
+
   getRepository<Entity> (entity: ObjectType<Entity>): Repository<Entity> {
     if (this.connection === undefined) throw new ConnectionNotFoundError()
     if (this.query !== undefined) return this.query.manager.getRepository(entity)

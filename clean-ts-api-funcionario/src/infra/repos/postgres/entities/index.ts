@@ -1,1 +1,1 @@
-export * from './funcionario'
+export * from './pg-funcionario'

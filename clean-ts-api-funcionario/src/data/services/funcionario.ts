@@ -6,7 +6,7 @@ import { Funcionario, FuncionarioModel } from '@/domain/entities'
 export class FuncionarioService implements CrudFuncionario {
   constructor (private readonly funcionarioRepository: FuncionarioRepository) {}
 
-  async buscarPorId (id: string): Promise<FuncionarioModel> {
+  async buscarPorId (id: string): Promise<FuncionarioModel | undefined> {
     return await this.funcionarioRepository.buscarPorId(id)
   }
 

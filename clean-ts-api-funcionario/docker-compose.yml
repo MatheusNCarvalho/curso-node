@@ -1,0 +1,51 @@
+version: '3'
+
+volumes:
+  postgres-data:
+    driver: "local"
+
+services:
+  database:
+    image: postgres:12-alpine
+    restart: always    
+    ports:
+      - "5432:5432"
+    environment:
+      - "POSTGRES_DB=postgres"
+      - "POSTGRES_USER=user"
+      - "POSTGRES_PASSWORD=pass"
+      - APP_DB_USER=user
+      - APP_DB_PASS=pass
+      - APP_DB_NAME=clennode
+    volumes:
+      - ./postgres-db:/docker-entrypoint-initdb.d/
+    networks:
+      - clean-node-api-network
+  
+  api:
+    container_name: api-container
+    build: .
+    image: clean-node-api
+    restart: always
+    command: npm start
+    env_file: 
+      - .env
+    environment:
+      - "DB_HOST=database"
+      - "DB_PORT=5432"
+      - "DB_USERNAME=user"
+      - "DB_PASSWORD=pass"
+      - "DB_DATABASE=clennode"
+    volumes:
+      - ./dist:/usr/src/app/dist
+    ports:
+      - "5050:5050"
+    networks:
+      - clean-node-api-network
+    depends_on:
+      - database
+
+
+networks:
+  clean-node-api-network:
+    driver: bridge

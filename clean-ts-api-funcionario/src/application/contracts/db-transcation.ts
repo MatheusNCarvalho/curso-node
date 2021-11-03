@@ -3,4 +3,5 @@ export interface DbTranscation {
   closeTransaction: () => Promise<void>
   commit: () => Promise<void>
   rollback: () => Promise<void>
+  runMigrations: () => Promise<void>
 }
